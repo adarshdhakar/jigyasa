@@ -1,0 +1,101 @@
+npm create vite@latest triumph-iq -- --template react
+
+equivalent command -> npx create-vite@latest
+
+cd triumph-iq
+npm install
+
+npm install -D tailwindcss postcss autoprefixer
+npm install -D tailwindcss@3.4.1 postcss autoprefixer
+dir node_modules\.bin\tailwindcss*
+
+npm install flowbite flowbite-react
+
+"tailwindcss": "^3.3.0",
+
+//"tailwindcss": "^4.0.14",
+
+npx tailwindcss init -p
+
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}"
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [
+    require('flowbite/plugin')
+  ],
+}
+
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+npm i react-router-dom
+npm install lucide-react
+
+
+npm i flowbite-react
+
+
+npm i validator
+npm i react-phone-input-2
+
+import validator from "validator";
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
+
+
+html, body {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none !important;
+}
+
+
+mvn com.spotify.fmt:fmt-maven-plugin:format
+
+ssh -i /Users/chiragnighut/Downloads/tiq-pem/LightsailDefaultKey-ap-south-1.pem ec2-user@65.0.90.195
+
+for PowerShell:
+ssh -i C:\Users\adars\OneDrive\Desktop\LightsailDefaultKey-ap-south-1.pem ec2-user@65.0.90.195
+
+for Cmd:
+ssh -i "C:\Users\adars\OneDrive\Desktop\LightsailDefaultKey-ap-south-1.pem" ec2-user@65.0.90.195
+
+for Git Bash:
+ssh -i "/Users/adars/OneDrive/Desktop/LightsailDefaultKey-ap-south-1.pem" ec2-user@65.0.90.195
+
+npx pm2 start ecosystem.config.js
+pm2 start ecosystem.config.js
+
+pm2 ls
+pm2 delete 0
+pm2 delete 1
+
+rm -rf
+
+npm i
+
+pm2 start --name my-vite-app "npm run dev"
+
+nihalbaldwA19@gmail.com
+
+AwsAccount@19
+
+
+ssh -i "C:\Users\adars\OneDrive\Desktop\LightsailDefaultKey-ap-south-1.pem" ec2-user@65.0.90.195 'mkdir -p ~/triumphiq-fe'
+
+scp -i "C:\Users\adars\OneDrive\Desktop\LightsailDefaultKey-ap-south-1.pem" triumph-iq.tar.gz ec2-user@65.0.90.195:~/triumphiq-fe/
