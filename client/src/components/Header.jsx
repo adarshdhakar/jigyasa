@@ -25,7 +25,7 @@ export default function Header({ t, i18n, mobileOpen, setMobileOpen, darkMode, s
           <select onChange={changeLanguage} value={i18n.language} className="bg-transparent border rounded border-blue-800 dark:border-gray-500 px-2 py-1">
             <option value="en" className="dark:bg-gray-800">English</option>
             <option value="hi" className="dark:bg-gray-800">हिंदी</option>
-            <option value="ja" className="dark:bg-gray-800">日本語</option>
+            {/* <option value="ja" className="dark:bg-gray-800">日本語</option> */}
             <option value="mr" className="dark:bg-gray-800">मराठी</option>
           </select>
           <button onClick={() => setDarkMode(!darkMode)}>{darkMode ? <Sun /> : <Moon />}</button>

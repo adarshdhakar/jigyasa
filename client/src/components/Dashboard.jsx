@@ -1,18 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { 
-  Box, 
-  Grid, 
-  Paper, 
-  Typography, 
-  Container, 
-  Divider,
-  List,
-  ListItem,
-  ListItemText,
-  Skeleton 
-} from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Pie, Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   ArcElement,
@@ -24,9 +12,8 @@ import {
   Tooltip,
   Legend
 } from 'chart.js';
-import { Pie, Line } from 'react-chartjs-2';
+import { useTranslation } from 'react-i18next';
 
-// Register ChartJS components
 ChartJS.register(
   ArcElement,
   CategoryScale,
@@ -38,72 +25,15 @@ ChartJS.register(
   Legend
 );
 
-const DRAWER_WIDTH = 240;
-
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme }) => ({
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: DRAWER_WIDTH,
-    [theme.breakpoints.down('md')]: {
-      marginLeft: 0,
-    },
-  }),
-);
-
-const StyledPaper = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(3),
-  textAlign: 'center',
-  color: theme.palette.text.primary,
-  background: 'linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%)',
-  borderRadius: '10px',
-  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
-  transition: 'transform 0.3s ease-in-out',
-  '&:hover': {
-    transform: 'translateY(-5px)',
-  },
-}));
-
-const AnalysisPaper = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(3),
-  color: theme.palette.text.primary,
-  background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
-  borderRadius: '10px',
-  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
-  marginTop: theme.spacing(3),
-}));
-
-const StyledListItem = styled(ListItem)({
-  padding: '4px 0',
-});
-
-const ChartContainer = styled(Box)({
-  width: '100%',
-  height: '300px',
-  marginTop: '1rem',
-  marginBottom: '1rem',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-});
-
 const StatBox = ({ title, value, isLoading }) => (
-  <StyledPaper>
-    <Typography variant="h6" color="text.secondary" gutterBottom>
-      {title}
-    </Typography>
+  <div className="bg-gradient-to-br from-white to-gray-100 dark:from-gray-800 dark:to-gray-700 rounded-xl shadow-lg p-6 text-center transition-transform transform hover:-translate-y-1">
+    <p className="text-gray-500 dark:text-gray-400 text-sm font-medium mb-2">{title}</p>
     {isLoading ? (
-      <Skeleton variant="text" height={60} />
+      <div className="h-8 bg-gray-300 dark:bg-gray-600 rounded animate-pulse mx-auto w-1/2"></div>
     ) : (
-      <Typography variant="h4" component="div" fontWeight="bold">
-        {value}
-      </Typography>
+      <p className="text-3xl font-bold text-gray-800 dark:text-white">{value}</p>
     )}
-  </StyledPaper>
+  </div>
 );
 
 StatBox.propTypes = {
@@ -116,14 +46,15 @@ StatBox.defaultProps = {
   isLoading: false,
 };
 
-const MonthlyAnalysis = ({ 
-  assessmentData, 
-  attendanceData,
-  isLoading 
-}) => {
-  // Pie chart data for school assessment
+const MonthlyAnalysis = ({ assessmentData, attendanceData, isLoading }) => {
+  const { t } = useTranslation();
+
   const pieChartData = {
-    labels: ['Improved Performance', 'Completed Assessments', 'Needs Improvement'],
+    labels: [
+      t('assessment.improved_performance', 'Improved Performance'),
+      t('assessment.completed_assessments', 'Completed Assessments'),
+      t('assessment.needs_improvement', 'Needs Improvement')
+    ],
     datasets: [{
       data: [85, 75, 15],
       backgroundColor: [
@@ -137,107 +68,85 @@ const MonthlyAnalysis = ({
         'rgba(255, 99, 132, 1)',
       ],
       borderWidth: 1,
-    }],
+    }]
   };
 
-  // Line chart data for attendance tracking
   const lineChartData = {
-    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+    labels: [
+      t('weeks.week1', 'Week 1'),
+      t('weeks.week2', 'Week 2'),
+      t('weeks.week3', 'Week 3'),
+      t('weeks.week4', 'Week 4')
+    ],
     datasets: [{
-      label: 'Average Attendance Rate (%)',
+      label: t('attendance_chart_label', 'Average Attendance Rate (%)'),
       data: [88, 92, 90, 94],
       fill: false,
       borderColor: 'rgb(75, 192, 192)',
       tension: 0.1,
-    }],
+    }]
   };
 
-  const lineChartOptions = {
+  const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        position: 'top',
-      },
-    },
+    plugins: { legend: { position: 'top' } },
     scales: {
-      y: {
-        beginAtZero: false,
-        min: 80,
-        max: 100,
-      },
-    },
-  };
-
-  const pieChartOptions = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        position: 'top',
-      },
-    },
+      y: { min: 80, max: 100 }
+    }
   };
 
   return (
-    <AnalysisPaper>
-      <Typography variant="h5" fontWeight="bold" gutterBottom>
-        Monthly Analysis
-      </Typography>
-      <Divider sx={{ my: 2 }} />
-      
-      <Grid container spacing={3}>
-        {/* Assessment Section */}
-        <Grid item xs={12} md={6}>
-          <Box>
-            <Typography variant="h6" color="primary" gutterBottom>
-              Assessment Of Schools
-            </Typography>
-            {isLoading ? (
-              <Skeleton variant="rectangular" height={300} />
-            ) : (
-              <>
-                <ChartContainer>
-                  <Pie data={pieChartData} options={pieChartOptions} />
-                </ChartContainer>
-                <List dense>
-                  {assessmentData.map((item, index) => (
-                    <ListItem key={index}>
-                      <ListItemText primary={item} />
-                    </ListItem>
-                  ))}
-                </List>
-              </>
-            )}
-          </Box>
-        </Grid>
+    <div className="bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 rounded-xl shadow-lg p-6 mt-4">
+      <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-4">
+        {t('monthly_analysis', 'Monthly Analysis')}
+      </h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <h3 className="text-lg text-blue-600 dark:text-blue-400 font-semibold mb-3">
+            {t('assessment_of_schools', 'Assessment of Schools')}
+          </h3>
+          {isLoading ? (
+            <div className="h-72 bg-gray-300 dark:bg-gray-600 rounded animate-pulse"></div>
+          ) : (
+            <>
+              <div className="h-72 flex justify-center items-center">
+                <Pie data={pieChartData} options={{ responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' } } }} />
+              </div>
+              <ul className="mt-3 text-sm text-gray-700 dark:text-gray-300 space-y-2">
+                {assessmentData.map((itemKey, idx) => (
+                  <li key={idx} className="border-b border-gray-200 dark:border-gray-600 pb-1">
+                    {t(itemKey)}
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </div>
 
-        {/* Attendance Section */}
-        <Grid item xs={12} md={6}>
-          <Box>
-            <Typography variant="h6" color="primary" gutterBottom>
-              Live Attendance Tracking
-            </Typography>
-            {isLoading ? (
-              <Skeleton variant="rectangular" height={300} />
-            ) : (
-              <>
-                <ChartContainer>
-                  <Line data={lineChartData} options={lineChartOptions} />
-                </ChartContainer>
-                <List dense>
-                  {attendanceData.map((item, index) => (
-                    <ListItem key={index}>
-                      <ListItemText primary={item} />
-                    </ListItem>
-                  ))}
-                </List>
-              </>
-            )}
-          </Box>
-        </Grid>
-      </Grid>
-    </AnalysisPaper>
+        <div>
+          <h3 className="text-lg text-blue-600 dark:text-blue-400 font-semibold mb-3">
+            {t('live_attendance_tracking', 'Live Attendance Tracking')}
+          </h3>
+          {isLoading ? (
+            <div className="h-72 bg-gray-300 dark:bg-gray-600 rounded animate-pulse"></div>
+          ) : (
+            <>
+              <div className="h-72 flex justify-center items-center">
+                <Line data={lineChartData} options={chartOptions} />
+              </div>
+              <ul className="mt-3 text-sm text-gray-700 dark:text-gray-300 space-y-2">
+                {attendanceData.map((itemKey, idx) => (
+                  <li key={idx} className="border-b border-gray-200 dark:border-gray-600 pb-1">
+                    {t(itemKey)}
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </div>
+      </div>
+    </div>
   );
 };
 
@@ -252,62 +161,38 @@ MonthlyAnalysis.defaultProps = {
 };
 
 const Dashboard = () => {
+  const { t } = useTranslation();
+
   const dashboardData = {
     stats: {
       volunteers: 15,
       schools: 60,
-      ongoingPrograms: 'Science Fair',
+      ongoingPrograms: t('ongoing_programs_value', 'Science Fair')
     },
     assessmentData: [
-      '85% schools showing improved academic performance',
-      '45 schools completed monthly assessments',
-      'Key areas of improvement: Science and Mathematics',
+      'assessment_data.0',
+      'assessment_data.1',
+      'assessment_data.2'
     ],
     attendanceData: [
-      'Average attendance rate: 92%',
-      '52 schools reporting daily attendance',
-      '15 schools achieved 95%+ attendance this month',
-    ],
+      'attendance_data.0',
+      'attendance_data.1',
+      'attendance_data.2'
+    ]
   };
 
   return (
-    <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={3}>
-          {/* Stats Boxes - Left Side */}
-          <Grid item xs={12} md={4}>
-            <Grid container spacing={2} direction="column">
-              <Grid item>
-                <StatBox 
-                  title="Total Volunteers" 
-                  value={dashboardData.stats.volunteers} 
-                />
-              </Grid>
-              <Grid item>
-                <StatBox 
-                  title="Total Schools" 
-                  value={dashboardData.stats.schools} 
-                />
-              </Grid>
-              <Grid item>
-                <StatBox 
-                  title="Ongoing Programs" 
-                  value={dashboardData.stats.ongoingPrograms} 
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-
-          {/* Monthly Analysis - Right Side */}
-          <Grid item xs={12} md={8}>
-            <MonthlyAnalysis 
-              assessmentData={dashboardData.assessmentData}
-              attendanceData={dashboardData.attendanceData}
-            />
-          </Grid>
-        </Grid>
-      </Box>
-    </Container>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <StatBox title={t('total_volunteers', 'Total Volunteers')} value={dashboardData.stats.volunteers} />
+        <StatBox title={t('total_schools', 'Total Schools')} value={dashboardData.stats.schools} />
+        <StatBox title={t('ongoing_programs', 'Ongoing Programs')} value={dashboardData.stats.ongoingPrograms} />
+      </div>
+      <MonthlyAnalysis 
+        assessmentData={dashboardData.assessmentData}
+        attendanceData={dashboardData.attendanceData}
+      />
+    </div>
   );
 };
 

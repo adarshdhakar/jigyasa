@@ -44,7 +44,7 @@ export default function Footer({t, i18n, changeLanguage}) {
           >
             <option value="en">English</option>
             <option value="hi">हिंदी</option>
-            <option value="ja">日本語</option>
+            {/* <option value="ja">日本語</option> */}
             <option value="mr">मराठी</option>
           </select>
 

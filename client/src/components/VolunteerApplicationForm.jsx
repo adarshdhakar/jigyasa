@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import bgImage from '../images/image2.jpeg';
+import { useTranslation } from 'react-i18next';
 
 const VolunteerApplicationForm = () => {
+  const { t } = useTranslation();
+
   const [formData, setFormData] = useState({
     name: '',
     age: '',
@@ -28,13 +31,13 @@ const VolunteerApplicationForm = () => {
     fetchVolunteers();
   }, []);
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
     const transformedData = {
       ...formData,
@@ -44,45 +47,50 @@ const VolunteerApplicationForm = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:5000/applicant/create', {
+      const res = await fetch('http://localhost:5000/applicant/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(transformedData),
       });
 
-      if (response.ok) {
-        alert('Application submitted successfully!');
+      if (res.ok) {
+        alert(t('volunteers.success'));
         setFormData({
           name: '', age: '', gender: '', qualification: '',
           location: '', email: '', phone: '',
         });
       } else {
-        alert('Failed to submit application.');
+        alert(t('volunteers.failure'));
       }
-    } catch (error) {
-      console.error('Error submitting application:', error);
-      alert('An error occurred while submitting the application.');
+    } catch (err) {
+      console.error('Error submitting application:', err);
+      alert(t('volunteers.error'));
     }
   };
 
   return (
     <div
-      className="flex flex-col items-center justify-center min-h-screen bg-cover bg-center relative p-4"
+      className="flex flex-col items-center justify-center min-h-screen bg-cover bg-center relative p-6"
       style={{ backgroundImage: `url(${bgImage})` }}
     >
-      <div className="absolute inset-0 bg-white/50 backdrop-blur-sm z-0"></div>
+      <div className="absolute inset-0 bg-white/60 dark:bg-black/60 backdrop-blur-md z-0"></div>
 
-      <div className="relative z-10 bg-white shadow-md rounded-xl px-8 pt-6 pb-8 w-full max-w-md mb-10">
-        <h2 className="text-blue-800 text-2xl font-bold mb-6 text-center">Volunteer Application</h2>
-        <form onSubmit={handleSubmit}>
-          {[{ label: 'Name', id: 'name', type: 'text' },
-            { label: 'Age', id: 'age', type: 'number' },
-            { label: 'Location', id: 'location', type: 'text' },
-            { label: 'Email', id: 'email', type: 'email' },
-            { label: 'Phone Number', id: 'phone', type: 'tel' }].map(({ label, id, type }) => (
-            <div className="mb-4" key={id}>
-              <label htmlFor={id} className="block text-blue-700 text-sm font-semibold mb-1">
-                {label}:
+      <div className="relative z-10 w-full max-w-lg bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 rounded-xl shadow-lg p-8 mb-8">
+        <h2 className="text-2xl font-bold text-blue-800 dark:text-blue-300 mb-6 text-center">
+          {t('volunteers.title')}
+        </h2>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {[
+            { label: t('volunteers.name'), id: 'name', type: 'text' },
+            { label: t('volunteers.age'), id: 'age', type: 'number' },
+            { label: t('volunteers.location'), id: 'location', type: 'text' },
+            { label: t('volunteers.email'), id: 'email', type: 'email' },
+            { label: t('volunteers.phone'), id: 'phone', type: 'tel' }
+          ].map(({ label, id, type }) => (
+            <div key={id}>
+              <label htmlFor={id} className="block text-sm font-semibold text-blue-700 dark:text-blue-300 mb-1">
+                {label}
               </label>
               <input
                 type={type}
@@ -91,31 +99,33 @@ const VolunteerApplicationForm = () => {
                 value={formData[id]}
                 onChange={handleChange}
                 required
-                className="shadow appearance-none border border-blue-300 rounded w-full py-2 px-3 text-blue-900 bg-white leading-tight focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="w-full px-4 py-2 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border border-blue-300 dark:border-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
             </div>
           ))}
 
-          <div className="mb-4">
-            <label htmlFor="gender" className="block text-blue-700 text-sm font-semibold mb-1">Gender:</label>
+          <div>
+            <label htmlFor="gender" className="block text-sm font-semibold text-blue-700 dark:text-blue-300 mb-1">
+              {t('volunteers.gender')}
+            </label>
             <select
               id="gender"
               name="gender"
               value={formData.gender}
               onChange={handleChange}
               required
-              className="shadow appearance-none border border-blue-300 rounded w-full py-2 px-3 text-blue-900 bg-white leading-tight focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full px-4 py-2 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border border-blue-300 dark:border-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
             >
-              <option value="">-- Select Gender --</option>
-              <option value="male">Male (M)</option>
-              <option value="female">Female (F)</option>
-              <option value="other">Other (O)</option>
+              <option value="">{t('volunteers.select_gender')}</option>
+              <option value="male">{t('volunteers.male')}</option>
+              <option value="female">{t('volunteers.female')}</option>
+              <option value="other">{t('volunteers.other')}</option>
             </select>
           </div>
 
-          <div className="mb-6">
-            <label htmlFor="qualification" className="block text-blue-700 text-sm font-semibold mb-1">
-              Qualification (comma-separated):
+          <div>
+            <label htmlFor="qualification" className="block text-sm font-semibold text-blue-700 dark:text-blue-300 mb-1">
+              {t('volunteers.qualification')}
             </label>
             <input
               type="text"
@@ -124,28 +134,29 @@ const VolunteerApplicationForm = () => {
               value={formData.qualification}
               onChange={handleChange}
               required
-              placeholder="e.g. B.Sc, M.Sc, Ph.D"
-              className="shadow appearance-none border border-blue-300 rounded w-full py-2 px-3 text-blue-900 bg-white leading-tight focus:outline-none focus:ring-2 focus:ring-blue-400"
+              placeholder={t('volunteers.qual_placeholder')}
+              className="w-full px-4 py-2 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border border-blue-300 dark:border-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
             />
           </div>
 
-          <div className="text-center">
+          <div className="text-center pt-4">
             <button
               type="submit"
-              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md hover:shadow-lg transition duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition focus:ring-2 focus:ring-blue-400 focus:outline-none"
             >
-              Submit Application
+              {t('volunteers.submit')}
             </button>
           </div>
         </form>
       </div>
 
-      {/* Volunteer List */}
-      <div className="relative z-10 bg-white/80 backdrop-blur rounded-xl shadow-md px-6 py-4 w-full max-w-md">
-        <h3 className="text-blue-800 font-semibold text-lg mb-3 text-center">Existing Volunteers</h3>
-        <ul className="list-disc list-inside text-blue-900">
+      <div className="relative z-10 w-full max-w-lg bg-white dark:bg-gray-900 bg-opacity-80 dark:bg-opacity-80 backdrop-blur rounded-xl shadow-md p-6">
+        <h3 className="text-lg font-semibold text-blue-800 dark:text-blue-300 mb-3 text-center">
+          {t('volunteers.existing')}
+        </h3>
+        <ul className="list-disc list-inside text-gray-800 dark:text-gray-200 text-sm space-y-1">
           {volunteers.length === 0 ? (
-            <li className="italic text-sm text-gray-500">No volunteers found.</li>
+            <li className="italic text-gray-500 dark:text-gray-400">{t('volunteers.no_volunteers')}</li>
           ) : (
             volunteers.map((v) => (
               <li key={v._id}>{v.name}</li>

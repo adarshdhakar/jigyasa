@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const AdminAddApplicant = () => {
+  const { t } = useTranslation();
+
   const [applicants, setApplicants] = useState([]);
   const [selectedApplicantId, setSelectedApplicantId] = useState('');
 
@@ -9,15 +12,14 @@ const AdminAddApplicant = () => {
       try {
         const response = await fetch('http://localhost:5000/applicant/all');
         const data = await response.json();
-        // Assuming the response has applicants array, adjust if your API differs
         setApplicants(data.applicants || []);
       } catch (error) {
-        console.error('Error fetching applicants:', error);
+        console.error(t('add_applicant.fetch_error'), error);
       }
     };
 
     fetchApplicants();
-  }, []);
+  }, [t]);
 
   const handleChange = (e) => {
     setSelectedApplicantId(e.target.value);
@@ -26,7 +28,7 @@ const AdminAddApplicant = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!selectedApplicantId) {
-      alert('Please select an applicant');
+      alert(t('add_applicant.select_warning'));
       return;
     }
 
@@ -38,81 +40,45 @@ const AdminAddApplicant = () => {
       });
 
       if (response.ok) {
-        alert('Applicant accepted successfully!');
+        alert(t('add_applicant.success'));
         setSelectedApplicantId('');
       } else {
-        alert('Failed to accept applicant.');
+        alert(t('add_applicant.failure'));
       }
     } catch (error) {
-      console.error('Error submitting applicant:', error);
-      alert('Error occurred while submitting');
+      console.error(t('add_applicant.submit_error'), error);
+      alert(t('add_applicant.submit_error_alert'));
     }
   };
 
   return (
-    <div style={styles.container}>
-      <h2 style={styles.heading}>Select Applicant</h2>
-      <form onSubmit={handleSubmit} style={styles.form}>
+    <div className="max-w-md mx-auto mt-12 p-8 rounded-xl bg-gray-100 dark:bg-gray-800 shadow-lg">
+      <h2 className="text-2xl font-bold text-center text-gray-800 dark:text-gray-100 mb-6">
+        {t('add_applicant.title')}
+      </h2>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-5">
         <select
           value={selectedApplicantId}
           onChange={handleChange}
-          style={styles.select}
           required
+          className="px-4 py-3 text-base rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
         >
-          <option value="">-- Select Applicant --</option>
+          <option value="">{t('add_applicant.select_placeholder')}</option>
           {applicants.map((applicant) => (
             <option key={applicant._id} value={applicant._id}>
               {applicant.name}
             </option>
           ))}
         </select>
-        <button type="submit" style={styles.button}>
-          Accept Applicant
+        <button
+          type="submit"
+          className="py-3 text-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-md shadow-md hover:shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        >
+          {t('add_applicant.submit_button')}
         </button>
       </form>
     </div>
   );
-};
-
-const styles = {
-  container: {
-    maxWidth: '400px',
-    margin: '40px auto',
-    padding: '30px',
-    borderRadius: '8px',
-    backgroundColor: '#f7f9fc',
-    boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
-    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-  },
-  heading: {
-    textAlign: 'center',
-    marginBottom: '20px',
-    color: '#2c3e50',
-  },
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '20px',
-  },
-  select: {
-    padding: '10px 12px',
-    fontSize: '16px',
-    borderRadius: '6px',
-    border: '1px solid #ccc',
-    outline: 'none',
-    transition: 'border-color 0.3s ease',
-  },
-  button: {
-    padding: '12px',
-    fontSize: '16px',
-    fontWeight: '600',
-    color: 'white',
-    backgroundColor: '#2980b9',
-    border: 'none',
-    borderRadius: '6px',
-    cursor: 'pointer',
-    transition: 'background-color 0.3s ease',
-  },
 };
 
 export default AdminAddApplicant;

@@ -127,5 +127,39 @@
   "your_stats": "あなたの統計",
   "logins": "ログイン数",
   "user_id": "ユーザーID",
-  "auth_provider": "認証プロバイダー"
+  "auth_provider": "認証プロバイダー",
+  "total_volunteers": "合計ボランティア",
+  "total_schools": "合計学校数",
+  "ongoing_programs": "進行中のプログラム",
+  "ongoing_programs_value": "サイエンスフェア",
+  "monthly_analysis": "月間分析",
+  "assessment_of_schools": "学校の評価",
+  "live_attendance_tracking": "出席状況のリアルタイム追跡",
+
+  "assessment": {
+    "improved_performance": "成績向上",
+    "completed_assessments": "評価完了",
+    "needs_improvement": "改善が必要"
+  },
+
+  "weeks": {
+    "week1": "第1週",
+    "week2": "第2週",
+    "week3": "第3週",
+    "week4": "第4週"
+  },
+
+  "attendance_chart_label": "平均出席率 (%)",
+
+  "assessment_data": [
+    "85% の学校で学力向上が見られました",
+    "45校が月次評価を完了しました",
+    "主な改善分野: 理科と数学"
+  ],
+
+  "attendance_data": [
+    "平均出席率: 92%",
+    "52校が日々の出席を報告しています",
+    "15校が95%以上の出席率を達成しました"
+  ]
 }

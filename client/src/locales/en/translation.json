@@ -155,5 +155,162 @@
     "Scheduling System_desc": "Interactive scheduling tool for organizing volunteer teaching sessions and activities",
     "Analytics Dashboard_desc": "Detailed analysis of volunteer performance, student engagement, and resource utilization"
   },
-  "Jigyasa": "Jigyasa"
+  "Jigyasa": "Jigyasa",
+  "total_volunteers": "Total Volunteers",
+  "total_schools": "Total Schools",
+  "ongoing_programs": "Ongoing Programs",
+  "ongoing_programs_value": "Science Fair",
+  "monthly_analysis": "Monthly Analysis",
+  "assessment_of_schools": "Assessment of Schools",
+  "live_attendance_tracking": "Live Attendance Tracking",
+
+  "assessment": {
+    "improved_performance": "Improved Performance",
+    "completed_assessments": "Completed Assessments",
+    "needs_improvement": "Needs Improvement"
+  },
+
+  "weeks": {
+    "week1": "Week 1",
+    "week2": "Week 2",
+    "week3": "Week 3",
+    "week4": "Week 4"
+  },
+
+  "attendance_chart_label": "Average Attendance Rate (%)",
+
+  "assessment_data": [
+    "85% of schools are showing improved academic performance",
+    "45 schools have completed the monthly assessment",
+    "Key areas of improvement: Science and Mathematics"
+  ],
+
+  "attendance_data": [
+    "Average attendance rate: 92%",
+    "52 schools report daily attendance",
+    "15 schools achieved 95%+ attendance this month"
+  ],
+  "menu": {
+    "dashboard": "Dashboard",
+    "school": "School",
+    "add_school": "Add School",
+    "school_list": "School List",
+    "volunteer": "Volunteer",
+    "add_volunteer": "Add Volunteer",
+    "volunteer_list": "Volunteer List",
+    "schedule": "Schedule",
+    "evaluation_volunteer": "Evaluation Volunteer",
+    "upload": "Upload"
+  },
+  "placeholders": {
+    "search_schools": "Search schools...",
+    "search_volunteers": "Search volunteers..."
+  },
+  "add_school": {
+    "title": "Add New School",
+    "name_label": "School Name",
+    "name_placeholder": "e.g. Bluebell High School",
+    "address_label": "Address",
+    "address_placeholder": "City, Locality, PIN",
+    "email_label": "Email",
+    "email_placeholder": "school@example.com",
+    "phone_label": "Contact Number",
+    "phone_placeholder": "10-digit number",
+    "submit": "Add School",
+    "fill_all_fields": "Please fill in all fields.",
+    "success": "School added successfully!",
+    "failed": "Failed to add school.",
+    "error": "An error occurred while adding the school."
+  },
+  "school_list": {
+    "loading": "Loading schools...",
+    "fetch_error": "Failed to fetch school data.",
+    "invalid_data": "Invalid data format received.",
+    "general_error": "Something went wrong.",
+    "title": "School Directory",
+    "no_schools": "No schools found.",
+    "unnamed": "Unnamed School",
+    "address": "Address",
+    "email": "Email",
+    "phone": "Phone",
+    "status": "Status",
+    "active": "active",
+    "created": "Created",
+    "updated": "Updated"
+  },
+  "add_applicant": {
+    "title": "Select Applicant",
+    "select_placeholder": "-- Select Applicant --",
+    "select_warning": "Please select an applicant.",
+    "success": "Applicant accepted successfully!",
+    "failure": "Failed to accept applicant.",
+    "fetch_error": "Error fetching applicants.",
+    "submit_error": "Error submitting applicant.",
+    "submit_error_alert": "An error occurred while submitting.",
+    "submit_button": "Accept Applicant"
+  },
+  "volunteer_list": {
+    "title": "Volunteer Assignment Overview",
+    "loading": "Loading volunteers...",
+    "assigned_title": "Assigned Volunteers",
+    "unassigned_title": "Unassigned Volunteers",
+    "no_assigned": "No assigned volunteers.",
+    "no_unassigned": "No unassigned volunteers.",
+    "not_assigned": "Not Assigned",
+    "fetch_error": "Error fetching volunteers."
+  },
+  "schedule": {
+    "title": "Schedule Calendar",
+    "add_schedule": "Add Schedule",
+    "volunteer_id": "Volunteer ID",
+    "volunteer_email": "Volunteer Email",
+    "subject": "Subject",
+    "school_name": "School Name",
+    "school_email": "School Email",
+    "grade": "Grade",
+    "start_time": "Start Time",
+    "time": "Time",
+    "volunteer": "Volunteer",
+    "school": "School",
+    "cancel": "Cancel",
+    "save": "Save",
+    "save_failed": "Failed to save schedule.",
+    "save_success": "Schedule saved successfully!",
+    "error_saving": "Error saving schedule."
+  },
+  "upload": {
+    "download_template": "Download CSV Template",
+    "use_template": "Use the example CSV as a starting point for your upload.",
+    "download_button": "Download Template",
+    "drag_or_click": "Click or Drag CSV file to upload",
+    "max_size": "Max size: 25MB",
+    "invalid_file": "Please upload a valid CSV file.",
+    "uploading": "Uploading...",
+    "error_complete": "Upload Completed with Errors",
+    "success": "Upload Successful",
+    "download_error_file": "Download Error File",
+    "done": "Done",
+    "see_uploaded": "See Uploaded Data"
+  },
+  "volunteers": {
+    "title": "Volunteer Application",
+    "name": "Name",
+    "age": "Age",
+    "location": "Location",
+    "email": "Email",
+    "phone": "Phone Number",
+    "gender": "Gender",
+    "select_gender": "-- Select Gender --",
+    "male": "Male (M)",
+    "female": "Female (F)",
+    "other": "Other (O)",
+    "qualification": "Qualification (comma-separated)",
+    "qual_placeholder": "e.g. B.Sc, M.Sc, Ph.D",
+    "submit": "Submit Application",
+    "existing": "Existing Volunteers",
+    "no_volunteers": "No volunteers found.",
+    "success": "Application submitted successfully!",
+    "failure": "Failed to submit application.",
+    "error": "An error occurred while submitting."
+  }
 }

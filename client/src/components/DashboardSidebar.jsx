@@ -1,306 +1,154 @@
 import React, { useState } from 'react';
-import { 
-  Box,
-  Drawer,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  ListItemButton,
-  Typography,
-  IconButton,
-  useTheme,
-  useMediaQuery,
-  Divider,
-  Collapse,
-  TextField,
-  InputAdornment
-} from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Link, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import {
-  Menu as MenuIcon,
-  School as SchoolIcon,
-  PersonAdd as PersonAddIcon,
-  Dashboard as DashboardIcon,
+  Menu,
+  School,
+  PersonAdd,
+  Dashboard,
   ExpandLess,
   ExpandMore,
-  Add as AddIcon,
-  Search as SearchIcon,
-  Schedule as ScheduleIcon,
-  Assessment as AssessmentIcon,
-  Upload as UploadIcon,
+  Add,
+  Schedule,
+  Assessment,
+  Upload,
 } from '@mui/icons-material';
 
-import { Link, useLocation } from 'react-router-dom';
-
-const DRAWER_WIDTH = 240;
-
-const StyledDrawer = styled(Drawer)(({ theme }) => ({
-  width: DRAWER_WIDTH,
-  flexShrink: 0,
-  '& .MuiDrawer-paper': {
-    width: DRAWER_WIDTH,
-    boxSizing: 'border-box',
-    backgroundColor: theme.palette.background.default,
-    borderRight: `1px solid ${theme.palette.divider}`,
-  },
-}));
-
-const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  padding: theme.spacing(2),
-  justifyContent: 'space-between',
-  backgroundColor: theme.palette.primary.main,
-  color: theme.palette.primary.contrastText,
-}));
-
-const SearchTextField = styled(TextField)(({ theme }) => ({
-  margin: theme.spacing(1),
-  '& .MuiInputBase-root': {
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: theme.palette.background.paper,
-    fontSize: '0.875rem',
-  },
-}));
-
 const menuItems = [
-  { text: 'Schedule', icon: <ScheduleIcon />, path: '/schedule' },
-  { text: 'Evaluation Volunteer', icon: <AssessmentIcon />, path: '/evaluate-volunteer' },
-  { text: 'Upload', icon: <UploadIcon />, path: '/upload' },
+  { key: 'menu.schedule', icon: <Schedule fontSize="small" />, path: '/schedule' },
+  { key: 'menu.evaluation_volunteer', icon: <Assessment fontSize="small" />, path: '/evaluate-volunteer' },
+  { key: 'menu.upload', icon: <Upload fontSize="small" />, path: '/upload' },
 ];
 
 const DashboardSidebar = () => {
-  const theme = useTheme();
+  const { t } = useTranslation();
   const location = useLocation();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [mobileOpen, setMobileOpen] = useState(false);
   const [schoolOpen, setSchoolOpen] = useState(false);
   const [volunteerOpen, setVolunteerOpen] = useState(false);
   const [schoolSearch, setSchoolSearch] = useState('');
   const [volunteerSearch, setVolunteerSearch] = useState('');
 
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
+  const toggleMobile = () => setMobileOpen(!mobileOpen);
+  const toggleSchool = () => setSchoolOpen(!schoolOpen);
+  const toggleVolunteer = () => setVolunteerOpen(!volunteerOpen);
 
-  const handleSchoolClick = () => {
-    setSchoolOpen(!schoolOpen);
-  };
+  const isActive = (path) => location.pathname === path;
 
-  const handleVolunteerClick = () => {
-    setVolunteerOpen(!volunteerOpen);
-  };
+  const menuItemClass = (path) =>
+    `flex items-center px-4 py-2 rounded-md transition text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 ${
+      isActive(path) ? 'bg-gray-200 dark:bg-gray-700 font-semibold' : ''
+    }`;
 
-  const drawerContent = (
-    <>
-      <DrawerHeader>
-        <Typography variant="h6" noWrap component="div">
-          Admin Panel
-        </Typography>
-        {isMobile && (
-          <IconButton
-            color="inherit"
-            edge="end"
-            onClick={handleDrawerToggle}
-            sx={{ ml: 1 }}
-          >
-            <MenuIcon />
-          </IconButton>
-        )}
-      </DrawerHeader>
-      <Divider />
-      <List>
-        {/* Dashboard */}
-        <ListItem disablePadding>
-          <ListItemButton
-            component={Link}
-            to="/dashboard"
-            selected={location.pathname === '/dashboard'}
-          >
-            <ListItemIcon sx={{ minWidth: 0, mr: 3, color: theme.palette.primary.main }}>
-              <DashboardIcon />
-            </ListItemIcon>
-            <ListItemText primary="Dashboard" />
-          </ListItemButton>
-        </ListItem>
-
-        {/* School Section */}
-        <ListItem disablePadding>
-          <ListItemButton onClick={handleSchoolClick}>
-            <ListItemIcon sx={{ minWidth: 0, mr: 3, color: theme.palette.primary.main }}>
-              <SchoolIcon />
-            </ListItemIcon>
-            <ListItemText primary="School" />
-            {schoolOpen ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-        </ListItem>
-        <Collapse in={schoolOpen} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem sx={{ pl: 4 }}>
-              <SearchTextField
-                size="small"
-                fullWidth
-                placeholder="Search schools..."
-                value={schoolSearch}
-                onChange={(e) => setSchoolSearch(e.target.value)}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchIcon fontSize="small" />
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </ListItem>
-
-            <ListItem disablePadding>
-              <ListItemButton
-                sx={{ pl: 4 }}
-                component={Link}
-                to="/add-school"
-                selected={location.pathname === '/add-school'}
-              >
-                <ListItemIcon sx={{ minWidth: 0, mr: 3, color: theme.palette.success.main }}>
-                  <AddIcon />
-                </ListItemIcon>
-                <ListItemText primary="Add School" />
-              </ListItemButton>
-            </ListItem>
-          </List>
-        </Collapse>
-        <ListItem disablePadding>
-  <ListItemButton
-    sx={{ pl: 4 }}
-    component={Link}
-    to="/schools"
-    selected={location.pathname === '/schools'}
-  >
-    <ListItemIcon sx={{ minWidth: 0, mr: 3, color: theme.palette.success.main }}>
-      <SchoolIcon />
-    </ListItemIcon>
-    <ListItemText primary="School List" />
-  </ListItemButton>
-</ListItem>
-
-
-        {/* Volunteer Section */}
-        <ListItem disablePadding>
-          <ListItemButton onClick={handleVolunteerClick}>
-            <ListItemIcon sx={{ minWidth: 0, mr: 3, color: theme.palette.primary.main }}>
-              <PersonAddIcon />
-            </ListItemIcon>
-            <ListItemText primary="Volunteer" />
-            {volunteerOpen ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-        </ListItem>
-        <Collapse in={volunteerOpen} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem sx={{ pl: 4 }}>
-              <SearchTextField
-                size="small"
-                fullWidth
-                placeholder="Search volunteers..."
-                value={volunteerSearch}
-                onChange={(e) => setVolunteerSearch(e.target.value)}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchIcon fontSize="small" />
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </ListItem>
-
-            <ListItem disablePadding>
-              <ListItemButton
-                sx={{ pl: 4 }}
-                component={Link}
-                to="/add-volunteer"
-                selected={location.pathname === '/add-volunteer'}
-              >
-                <ListItemIcon sx={{ minWidth: 0, mr: 3, color: theme.palette.success.main }}>
-                  <AddIcon />
-                </ListItemIcon>
-                <ListItemText primary="Add Volunteer" />
-              </ListItemButton>
-            </ListItem>
-
-            <ListItem disablePadding>
-              <ListItemButton
-                sx={{ pl: 4 }}
-                component={Link}
-                to="/volunteers"
-                selected={location.pathname === '/volunteers'}
-              >
-                <ListItemIcon sx={{ minWidth: 0, mr: 3, color: theme.palette.success.main }}>
-                  <PersonAddIcon />
-                </ListItemIcon>
-                <ListItemText primary="Volunteer List" />
-              </ListItemButton>
-            </ListItem>
-          </List>
-        </Collapse>
-
-        {/* Other menu items */}
-        {menuItems.map((item) => (
-          <ListItem key={item.text} disablePadding>
-            <ListItemButton
-              component={Link}
-              to={item.path}
-              selected={location.pathname === item.path}
-            >
-              <ListItemIcon sx={{ minWidth: 0, mr: 3, color: theme.palette.primary.main }}>
-                {item.icon}
-              </ListItemIcon>
-              <ListItemText primary={item.text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </>
-  );
+  const sectionHeaderClass = `flex items-center justify-between px-4 py-2 cursor-pointer text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md transition`;
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      {/* Mobile hamburger menu */}
-      {isMobile && (
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          edge="start"
-          onClick={handleDrawerToggle}
-          sx={{ mr: 2, display: { md: 'none' } }}
-        >
-          <MenuIcon />
-        </IconButton>
-      )}
+    <>
+      {/* Mobile toggle button */}
+      <button
+        className="md:hidden p-2 m-2 rounded bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
+        onClick={toggleMobile}
+      >
+        <Menu />
+      </button>
 
-      {/* Mobile drawer */}
-      {isMobile ? (
-        <Drawer
-          variant="temporary"
-          anchor="left"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true, // Better mobile performance
-          }}
-          sx={{
-            display: { xs: 'block', md: 'none' },
-            '& .MuiDrawer-paper': { width: DRAWER_WIDTH },
-          }}
-        >
-          {drawerContent}
-        </Drawer>
-      ) : (
-        // Desktop permanent drawer
-        <StyledDrawer variant="permanent" open>
-          {drawerContent}
-        </StyledDrawer>
-      )}
-    </Box>
+      {/* Sidebar */}
+      <div
+        className={`fixed md:static top-0 left-0 w-60 shadow-md transition-transform
+          ${mobileOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+          bg-gray-200 dark:bg-gray-800
+        `}
+      >
+        <div className="border-b border-gray-300 dark:border-gray-700 my-2"></div>
+
+        <nav className="flex flex-col space-y-1 mt-2">
+
+          {/* Dashboard */}
+          <Link to="/dashboard" className={menuItemClass('/dashboard')}>
+            <Dashboard className="mr-3 text-blue-600" />
+            {t('menu.dashboard')}
+          </Link>
+
+          {/* School Section */}
+          <div>
+            <div onClick={toggleSchool} className={sectionHeaderClass}>
+              <div className="flex items-center">
+                <School className="mr-3 text-blue-600" />
+                {t('menu.school')}
+              </div>
+              {schoolOpen ? <ExpandLess /> : <ExpandMore />}
+            </div>
+
+            <div
+              className={`pl-6 transition-all duration-300 overflow-hidden ${
+                schoolOpen ? 'max-h-96' : 'max-h-0'
+              }`}
+            >
+              <input
+                type="text"
+                placeholder={t('placeholders.search_schools')}
+                value={schoolSearch}
+                onChange={(e) => setSchoolSearch(e.target.value)}
+                className="bg-gray-100 dark:bg-gray-800 text-sm rounded px-3 py-2 w-full mt-2 mb-2 text-gray-700 dark:text-gray-300 placeholder-gray-400"
+              />
+
+              <Link to="/add-school" className={menuItemClass('/add-school')}>
+                <Add className="mr-3 text-green-600" />
+                {t('menu.add_school')}
+              </Link>
+
+              <Link to="/schools" className={menuItemClass('/schools')}>
+                <School className="mr-3 text-green-600" />
+                {t('menu.school_list')}
+              </Link>
+            </div>
+          </div>
+
+          {/* Volunteer Section */}
+          <div>
+            <div onClick={toggleVolunteer} className={sectionHeaderClass}>
+              <div className="flex items-center">
+                <PersonAdd className="mr-3 text-blue-600" />
+                {t('menu.volunteer')}
+              </div>
+              {volunteerOpen ? <ExpandLess /> : <ExpandMore />}
+            </div>
+
+            <div
+              className={`pl-6 transition-all duration-300 overflow-hidden ${
+                volunteerOpen ? 'max-h-96' : 'max-h-0'
+              }`}
+            >
+              <input
+                type="text"
+                placeholder={t('placeholders.search_volunteers')}
+                value={volunteerSearch}
+                onChange={(e) => setVolunteerSearch(e.target.value)}
+                className="bg-gray-100 dark:bg-gray-800 text-sm rounded px-3 py-2 w-full mt-2 mb-2 text-gray-700 dark:text-gray-300 placeholder-gray-400"
+              />
+
+              <Link to="/add-volunteer" className={menuItemClass('/add-volunteer')}>
+                <Add className="mr-3 text-green-600" />
+                {t('menu.add_volunteer')}
+              </Link>
+
+              <Link to="/volunteers" className={menuItemClass('/volunteers')}>
+                <PersonAdd className="mr-3 text-green-600" />
+                {t('menu.volunteer_list')}
+              </Link>
+            </div>
+          </div>
+
+          {/* Other Menu Items */}
+          {menuItems.map((item) => (
+            <Link key={item.key} to={item.path} className={menuItemClass(item.path)}>
+              <span className="mr-3 text-blue-600">{item.icon}</span>
+              {t(item.key)}
+            </Link>
+          ))}
+        </nav>
+      </div>
+    </>
   );
 };
 

@@ -24,126 +24,21 @@ const LoginSignup = () => {
     setToast({ type, title, message });
   };
 
-  const handleEmailAuth = async (e) => {
-    e.preventDefault();
-    try {
-      if (isLogin) {
-        // Login
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
-        const token = await user.getIdToken();
-        
-        // Save to localStorage
-        const authData = {
-          uid: user.uid,
-          email: user.email,
-          displayName: user.displayName,
-          photoURL: user.photoURL,
-          accessToken: token
-        };
-        localStorage.setItem('authUser', JSON.stringify(authData));
-
-        // Update backend
-        await axios.post(`${BASE_URL}/auth/login`, { 
-          uid: user.uid,
-          email: user.email,
-          metadata: {
-            lastLogin: new Date()
-          }
-        }, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-
-        showToast("success", "Login Successful", "Welcome back!");
-        navigate('/dashboard');
-      } else {
-        // Signup
-        const userCred = await createUserWithEmailAndPassword(auth, email, password);
-        const token = await userCred.user.getIdToken();
-
-        // Save to localStorage
-        const authData = {
-          uid: userCred.user.uid,
-          email: userCred.user.email,
-          displayName: userCred.user.displayName,
-          photoURL: userCred.user.photoURL,
-          accessToken: token
-        };
-        localStorage.setItem('authUser', JSON.stringify(authData));
-
-        // Create user in backend
-        await axios.post(`${BASE_URL}/auth/login`, {
-          uid: userCred.user.uid,
-          email: userCred.user.email,
-          metadata: {
-            createdAt: new Date(),
-            lastLogin: new Date()
-          }
-        }, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-
-        showToast("success", "Signup Successful", "Your account was created.");
-        navigate('/dashboard');
-      }
-    } catch (error) {
-      showToast("error", "Authentication Failed", error.message);
-    }
-  };
-
-  const handleSocialLogin = async (provider) => {
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      const token = await user.getIdToken();
-      
-      // Save to localStorage
-      const authData = {
-        uid: user.uid,
-        email: user.email,
-        displayName: user.displayName,
-        photoURL: user.photoURL,
-        accessToken: token
-      };
-      localStorage.setItem('authUser', JSON.stringify(authData));
-
-      // Update or create user in backend
-      await axios.post(`${BASE_URL}/auth/login`, {
-        uid: user.uid,
-        email: user.email,
-        displayName: user.displayName,
-        photoURL: user.photoURL,
-        metadata: {
-          lastLogin: new Date(),
-          provider: provider.providerId // 'google.com' or 'facebook.com'
-        }
-      }, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-
-      showToast("success", "Login Successful", `Welcome, ${user.displayName}`);
-      navigate('/dashboard');
-    } catch (error) {
-      console.error('Social login error:', error);
-      navigate("http://localhost:5000");
-      // showToast("error", "Social Login Failed", error.message);
-    }
-  };
-
   useEffect(() => {
-    setIsLogin(location.pathname == "/login");
+    setIsLogin(location.pathname === "/login");
   }, [location]);
+
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100 dark:bg-gray-900 px-4">
-      <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6 text-center text-gray-800 dark:text-white">
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 dark:from-gray-900 dark:to-gray-800 px-4 transition-colors">
+      <div className="bg-white dark:bg-gray-800 p-8 md:p-10 rounded-3xl shadow-2xl w-full max-w-md transition-all">
+        <h2 className="text-3xl font-extrabold mb-6 text-center text-gray-900 dark:text-white">
           {isLogin ? t('title_login') : t('title_signup')}
         </h2>
 
-        <form onSubmit={handleEmailAuth} className="space-y-4">
+        <form className="space-y-5">
           <input
             type="email"
-            className="w-full px-4 py-2 border rounded-md dark:bg-gray-700 dark:text-white"
+            className="w-full px-4 py-3 border rounded-lg dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 outline-none transition-all placeholder-gray-400 dark:placeholder-gray-500"
             placeholder={t('email_placeholder')}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -151,70 +46,64 @@ const LoginSignup = () => {
           />
           <input
             type="password"
-            className="w-full px-4 py-2 border rounded-md dark:bg-gray-700 dark:text-white"
+            className="w-full px-4 py-3 border rounded-lg dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 outline-none transition-all placeholder-gray-400 dark:placeholder-gray-500"
             placeholder={t('password_placeholder')}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
           <button
-            // type="submit"
             onClick={() => {
-              if(email == "adarshdhakar@gmail.com" && password == "adarsh") {
+              if (email === "adarshdhakar@gmail.com" && password === "adarsh") {
                 navigate("/volunteer/dashboard");
-              } else if(email != "" && password != "") {
+              } else if (email && password) {
                 navigate("/dashboard");
-              } 
+              }
             }}
-            className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition-all shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
-            {/* {isLogin ? t('submit_login') : t('submit_signup')} */}
-            {t('submit_login')}
+            {isLogin ? t('submit_login') : t('submit_signup')}
           </button>
         </form>
 
-        <div className="flex justify-between items-center mt-4">
-          <hr className="w-2/5 border-gray-300 dark:border-gray-600" />
-          <span className="text-sm text-gray-500 dark:text-gray-400">or</span>
-          <hr className="w-2/5 border-gray-300 dark:border-gray-600" />
+        <div className="flex items-center my-6">
+          <div className="flex-grow h-px bg-gray-300 dark:bg-gray-600"></div>
+          <span className="px-3 text-sm text-gray-500 dark:text-gray-400">OR</span>
+          <div className="flex-grow h-px bg-gray-300 dark:bg-gray-600"></div>
         </div>
 
-        <div className="flex flex-col space-y-2 mt-4">
+        <div className="flex flex-col space-y-3">
           <button
             onClick={() => handleSocialLogin(googleProvider)}
-            className="flex items-center justify-center gap-2 bg-red-500 text-white py-2 rounded-md hover:bg-red-600"
+            className="flex items-center justify-center gap-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 py-3 rounded-lg shadow-sm hover:shadow-md transition-all text-gray-700 dark:text-gray-200"
           >
-            <img src="https://img.icons8.com/color/16/google-logo.png" alt="Google" />
+            <img src="https://img.icons8.com/color/24/google-logo.png" alt="Google" />
             {t('google')}
           </button>
 
           <button
             onClick={() => handleSocialLogin(facebookProvider)}
-            className="flex items-center justify-center gap-2 bg-blue-700 text-white py-2 rounded-md hover:bg-blue-800"
+            className="flex items-center justify-center gap-3 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg shadow-md transition-all"
           >
             <img
-              src="https://img.icons8.com/ios-filled/16/ffffff/facebook--v1.png"
+              src="https://img.icons8.com/ios-filled/24/ffffff/facebook--v1.png"
               alt="Facebook"
             />
             {t('facebook')}
           </button>
         </div>
 
-        {/* <p className="text-sm text-center mt-6 text-gray-600 dark:text-gray-300">
+        <p className="text-sm text-center mt-8 text-gray-600 dark:text-gray-400">
           {isLogin ? t('toggle_to_signup') : t('toggle_to_login')}{" "}
           <button
             onClick={() => {
-              if(isLogin) {
-                navigate('/register');
-              } else {
-                navigate('/login');
-              }
+              navigate(isLogin ? '/register' : '/login');
             }}
-            className="text-blue-600 hover:underline"
+            className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
           >
             {isLogin ? t('toggle_signup') : t('toggle_login')}
           </button>
-        </p> */}
+        </p>
       </div>
 
       {toast && (

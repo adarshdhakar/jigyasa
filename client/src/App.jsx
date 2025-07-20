@@ -50,18 +50,17 @@ const adminTheme = createTheme({
   },
 });
 
-// ✅ Admin Layout Wrapper
 function AdminLayout() {
   return (
-    <ThemeProvider theme={adminTheme}>
-      <CssBaseline />
-      <Box sx={{ display: 'flex', minHeight: '100vh' }}>
-        <DashboardSidebar />
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-          <Outlet />
-        </Box>
-      </Box>
-    </ThemeProvider>
+    <div className="flex min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+      {/* Sidebar */}
+      <DashboardSidebar />
+
+      {/* Main Content */}
+      <main className="flex-1 p-6 overflow-y-auto">
+        <Outlet />
+      </main>
+    </div>
   );
 }
 
@@ -91,20 +90,21 @@ function App() {
           <Route path="/volunteer/chapterpage/:chapterId" element={<ChapterPage />} />
           <Route path="/volunteer/quizpage/:chapterId" element={<QuizPage />} />
           <Route path="/volunteer/gradechapters/videos" element={<Videos />} />
+          <Route element={<AdminLayout />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/add-school" element={<AdminAddSchool />} />
+            <Route path="/add-volunteer" element={<AdminAddVolunteer />} />
+            <Route path="/volunteers" element={<AdminVolunteerList />} />
+            <Route path="/schedule" element={<ScheduleClass />} />
+            <Route path="/schools" element={<AdminSchoolList />} />
+            <Route path="/apply-volunteer" element={<VolunteerApplicationForm />} />
+            <Route path="/upload" element={<Uploader />} />
+            <Route path="/evaluate-volunteer" element={<EvaluationVolunteer />} />
+          </Route>
         </Route>
 
         {/* Admin layout */}
-        <Route element={<AdminLayout />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/add-school" element={<AdminAddSchool />} />
-          <Route path="/add-volunteer" element={<AdminAddVolunteer />} />
-          <Route path="/volunteers" element={<AdminVolunteerList />} />
-          <Route path="/schedule" element={<ScheduleClass />} />
-          <Route path="/schools" element={<AdminSchoolList />} />
-          <Route path="/apply-volunteer" element={<VolunteerApplicationForm />} />
-          <Route path="/upload" element={<Uploader />} />
-          <Route path="/evaluate-volunteer" element={<EvaluationVolunteer />} />
-        </Route>
+        
 
         {/* Redirect unknown routes */}
         <Route path="*" element={<Navigate to="/" />} />

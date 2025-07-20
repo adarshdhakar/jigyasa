@@ -155,5 +155,162 @@
     "Scheduling System_desc": "शिक्षण सत्रों और गतिविधियों के आयोजन के लिए इंटरएक्टिव शेड्यूलिंग टूल",
     "Analytics Dashboard_desc": "स्वयंसेवक प्रदर्शन, छात्र सहभागिता और संसाधन उपयोग का विस्तृत विश्लेषण"
   },
-  "Jigyasa": "जिज्ञासा"
+  "Jigyasa": "जिज्ञासा",
+  "total_volunteers": "कुल स्वयंसेवक",
+  "total_schools": "कुल स्कूल",
+  "ongoing_programs": "चालू कार्यक्रम",
+  "ongoing_programs_value": "विज्ञान मेला",
+  "monthly_analysis": "मासिक विश्लेषण",
+  "assessment_of_schools": "स्कूलों का मूल्यांकन",
+  "live_attendance_tracking": "लाइव उपस्थिति ट्रैकिंग",
+
+  "assessment": {
+    "improved_performance": "बेहतर प्रदर्शन",
+    "completed_assessments": "पूर्ण मूल्यांकन",
+    "needs_improvement": "सुधार की आवश्यकता"
+  },
+
+  "weeks": {
+    "week1": "सप्ताह 1",
+    "week2": "सप्ताह 2",
+    "week3": "सप्ताह 3",
+    "week4": "सप्ताह 4"
+  },
+
+  "attendance_chart_label": "औसत उपस्थिति दर (%)",
+
+  "assessment_data": [
+    "85% स्कूलों में शैक्षणिक प्रदर्शन में सुधार",
+    "45 स्कूलों ने मासिक मूल्यांकन पूरा किया",
+    "मुख्य सुधार क्षेत्र: विज्ञान और गणित"
+  ],
+
+  "attendance_data": [
+    "औसत उपस्थिति दर: 92%",
+    "52 स्कूल प्रतिदिन उपस्थिति रिपोर्ट करते हैं",
+    "15 स्कूलों ने 95%+ उपस्थिति हासिल की"
+  ],
+  "menu": {
+    "dashboard": "डैशबोर्ड",
+    "school": "स्कूल",
+    "add_school": "स्कूल जोड़ें",
+    "school_list": "स्कूल सूची",
+    "volunteer": "स्वयंसेवक",
+    "add_volunteer": "स्वयंसेवक जोड़ें",
+    "volunteer_list": "स्वयंसेवकों की सूची",
+    "schedule": "शेड्यूल",
+    "evaluation_volunteer": "स्वयंसेवक मूल्यांकन",
+    "upload": "अपलोड"
+  },
+  "placeholders": {
+    "search_schools": "स्कूल खोजें...",
+    "search_volunteers": "स्वयंसेवक खोजें..."
+  },
+  "add_school": {
+    "title": "नया स्कूल जोड़ें",
+    "name_label": "स्कूल का नाम",
+    "name_placeholder": "जैसे: ब्लूबेल हाई स्कूल",
+    "address_label": "पता",
+    "address_placeholder": "शहर, स्थान, पिन",
+    "email_label": "ईमेल",
+    "email_placeholder": "school@example.com",
+    "phone_label": "संपर्क नंबर",
+    "phone_placeholder": "10 अंकों का नंबर",
+    "submit": "स्कूल जोड़ें",
+    "fill_all_fields": "कृपया सभी फ़ील्ड भरें।",
+    "success": "स्कूल सफलतापूर्वक जोड़ा गया!",
+    "failed": "स्कूल जोड़ने में विफल।",
+    "error": "स्कूल जोड़ते समय एक त्रुटि हुई।"
+  },
+  "school_list": {
+    "loading": "स्कूल लोड हो रहे हैं...",
+    "fetch_error": "स्कूल डेटा प्राप्त करने में विफल।",
+    "invalid_data": "गलत डेटा प्रारूप प्राप्त हुआ।",
+    "general_error": "कुछ गलत हो गया।",
+    "title": "स्कूल निर्देशिका",
+    "no_schools": "कोई स्कूल नहीं मिला।",
+    "unnamed": "बिना नाम का स्कूल",
+    "address": "पता",
+    "email": "ईमेल",
+    "phone": "फोन",
+    "status": "स्थिति",
+    "active": "सक्रिय",
+    "created": "बनाया गया",
+    "updated": "अपडेट किया गया"
+  },
+   "add_applicant": {
+    "title": "आवेदक चुनें",
+    "select_placeholder": "-- आवेदक चुनें --",
+    "select_warning": "कृपया एक आवेदक चुनें।",
+    "success": "आवेदक सफलतापूर्वक स्वीकृत किया गया!",
+    "failure": "आवेदक को स्वीकृत करने में विफल।",
+    "fetch_error": "आवेदकों को लाने में त्रुटि।",
+    "submit_error": "आवेदक सबमिट करते समय त्रुटि।",
+    "submit_error_alert": "सबमिट करते समय कोई त्रुटि हुई।",
+    "submit_button": "आवेदक स्वीकृत करें"
+  },
+   "volunteer_list": {
+    "title": "स्वयंसेवक असाइनमेंट अवलोकन",
+    "loading": "स्वयंसेवकों को लोड किया जा रहा है...",
+    "assigned_title": "असाइन किए गए स्वयंसेवक",
+    "unassigned_title": "असाइन न किए गए स्वयंसेवक",
+    "no_assigned": "कोई स्वयंसेवक असाइन नहीं किया गया।",
+    "no_unassigned": "सभी स्वयंसेवक असाइन किए गए हैं।",
+    "not_assigned": "असाइन नहीं किया गया",
+    "fetch_error": "स्वयंसेवकों को लाने में त्रुटि।"
+  },
+  "schedule": {
+    "title": "अनुसूची कैलेंडर",
+    "add_schedule": "अनुसूची जोड़ें",
+    "volunteer_id": "स्वयंसेवक आईडी",
+    "volunteer_email": "स्वयंसेवक ईमेल",
+    "subject": "विषय",
+    "school_name": "स्कूल का नाम",
+    "school_email": "स्कूल ईमेल",
+    "grade": "कक्षा",
+    "start_time": "प्रारंभ समय",
+    "time": "समय",
+    "volunteer": "स्वयंसेवक",
+    "school": "स्कूल",
+    "cancel": "रद्द करें",
+    "save": "सहेजें",
+    "save_failed": "अनुसूची सहेजने में विफल।",
+    "save_success": "अनुसूची सफलतापूर्वक सहेजी गई!",
+    "error_saving": "अनुसूची सहेजते समय त्रुटि।"
+  },
+  "upload": {
+    "download_template": "CSV टेम्पलेट डाउनलोड करें",
+    "use_template": "अपलोड के लिए उदाहरण CSV का उपयोग करें।",
+    "download_button": "टेम्पलेट डाउनलोड करें",
+    "drag_or_click": "CSV फ़ाइल अपलोड करने के लिए क्लिक करें या खींचें",
+    "max_size": "अधिकतम आकार: 25MB",
+    "invalid_file": "कृपया एक मान्य CSV फ़ाइल अपलोड करें।",
+    "uploading": "अपलोड हो रहा है...",
+    "error_complete": "कुछ त्रुटियों के साथ अपलोड पूरा हुआ",
+    "success": "सफलतापूर्वक अपलोड हो गया",
+    "download_error_file": "त्रुटि फ़ाइल डाउनलोड करें",
+    "done": "पूर्ण",
+    "see_uploaded": "अपलोड डेटा देखें"
+  },
+   "volunteers": {
+    "title": "स्वयंसेवक आवेदन",
+    "name": "नाम",
+    "age": "आयु",
+    "location": "स्थान",
+    "email": "ईमेल",
+    "phone": "फोन नंबर",
+    "gender": "लिंग",
+    "select_gender": "-- लिंग चुनें --",
+    "male": "पुरुष (M)",
+    "female": "महिला (F)",
+    "other": "अन्य (O)",
+    "qualification": "योग्यता (कॉमा से अलग करें)",
+    "qual_placeholder": "जैसे B.Sc, M.Sc, Ph.D",
+    "submit": "आवेदन जमा करें",
+    "existing": "मौजूदा स्वयंसेवक",
+    "no_volunteers": "कोई स्वयंसेवक नहीं मिला।",
+    "success": "आवेदन सफलतापूर्वक जमा हुआ!",
+    "failure": "आवेदन जमा करने में विफल।",
+    "error": "जमा करते समय त्रुटि हुई।"
+  }
 }

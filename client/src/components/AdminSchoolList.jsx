@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const AdminSchoolList = () => {
+  const { t } = useTranslation();
+
   const [schools, setSchools] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -9,37 +12,37 @@ const AdminSchoolList = () => {
     const fetchSchools = async () => {
       try {
         const res = await fetch('http://localhost:5000/school/all');
-        if (!res.ok) throw new Error('Failed to fetch school data');
+        if (!res.ok) throw new Error(t('school_list.fetch_error'));
 
         const data = await res.json();
         console.log('API response:', data);
 
         if (!data || !Array.isArray(data.schools)) {
-          throw new Error('Invalid data format received');
+          throw new Error(t('school_list.invalid_data'));
         }
 
         setSchools(data.schools);
       } catch (err) {
-        setError(err.message || 'Something went wrong');
+        setError(err.message || t('school_list.general_error'));
       } finally {
         setLoading(false);
       }
     };
 
     fetchSchools();
-  }, []);
+  }, [t]);
 
   if (loading) {
     return (
-      <div className="text-center mt-10 text-blue-600">
-        Loading schools...
+      <div className="text-center mt-10 text-blue-600 dark:text-blue-400">
+        {t('school_list.loading')}
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="text-center text-red-600 mt-10">
+      <div className="text-center text-red-600 dark:text-red-400 mt-10">
         {error}
       </div>
     );
@@ -47,12 +50,14 @@ const AdminSchoolList = () => {
 
   return (
     <div className="p-6 max-w-5xl mx-auto">
-      <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
-        School Directory
+      <h1 className="text-3xl font-bold text-center text-gray-800 dark:text-gray-100 mb-6">
+        {t('school_list.title')}
       </h1>
 
       {!Array.isArray(schools) || schools.length === 0 ? (
-        <p className="text-center text-gray-500">No schools found.</p>
+        <p className="text-center text-gray-500 dark:text-gray-400">
+          {t('school_list.no_schools')}
+        </p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {schools.map((school) => {
@@ -66,25 +71,25 @@ const AdminSchoolList = () => {
             return (
               <div
                 key={school._id || Math.random()}
-                className="bg-white shadow-md rounded-2xl p-4 border hover:shadow-lg transition"
+                className="bg-white dark:bg-gray-800 shadow-md dark:shadow-lg rounded-2xl p-4 border border-gray-200 dark:border-gray-700 hover:shadow-lg dark:hover:shadow-xl transition-all"
               >
-                <h2 className="text-xl font-semibold text-gray-800 mb-1">
-                  {school.name || 'Unnamed School'}
+                <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-1">
+                  {school.name || t('school_list.unnamed')}
                 </h2>
-                <p className="text-sm text-gray-600 mb-1">
-                  <strong>Address:</strong> {school.address || 'Not provided'}
+                <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">
+                  <strong>{t('school_list.address')}:</strong> {school.address || t('school_list.not_provided')}
                 </p>
-                <p className="text-sm text-gray-600 mb-1">
-                  <strong>Email:</strong> {school.email || 'Not provided'}
+                <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">
+                  <strong>{t('school_list.email')}:</strong> {school.email || t('school_list.not_provided')}
                 </p>
-                <p className="text-sm text-gray-600 mb-2">
-                  <strong>Phone:</strong> {school.phone || 'Not provided'}
+                <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
+                  <strong>{t('school_list.phone')}:</strong> {school.phone || t('school_list.not_provided')}
                 </p>
-                <div className="text-sm text-gray-500">
-                  <strong>Status:</strong> {school.status || 'active'}
+                <div className="text-sm text-gray-500 dark:text-gray-400">
+                  <strong>{t('school_list.status')}:</strong> {school.status || t('school_list.active')}
                 </div>
-                <div className="text-xs text-gray-400 mt-1">
-                  Created: {createdDate} | Updated: {updatedDate}
+                <div className="text-xs text-gray-400 dark:text-gray-500 mt-1">
+                  {t('school_list.created')}: {createdDate} | {t('school_list.updated')}: {updatedDate}
                 </div>
               </div>
             );
