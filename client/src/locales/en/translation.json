@@ -256,6 +256,7 @@
     "unassigned_title": "Unassigned Volunteers",
     "no_assigned": "No assigned volunteers.",
     "no_unassigned": "No unassigned volunteers.",
+    "search_placeholder": "Search by name, email or location",
     "not_assigned": "Not Assigned",
     "fetch_error": "Error fetching volunteers."
   },

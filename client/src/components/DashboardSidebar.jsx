@@ -132,7 +132,7 @@ const DashboardSidebar = () => {
                 {t('menu.add_volunteer')}
               </Link>
 
-              <Link to="/volunteers" className={menuItemClass('/volunteers')}>
+              <Link to="/list-volunteers" className={menuItemClass('/volunteers')}>
                 <PersonAdd className="mr-3 text-green-600" />
                 {t('menu.volunteer_list')}
               </Link>

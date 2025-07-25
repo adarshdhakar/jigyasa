@@ -94,7 +94,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/add-school" element={<AdminAddSchool />} />
             <Route path="/add-volunteer" element={<AdminAddVolunteer />} />
-            <Route path="/volunteers" element={<AdminVolunteerList />} />
+            <Route path="/list-volunteers" element={<AdminVolunteerList />} />
             <Route path="/schedule" element={<ScheduleClass />} />
             <Route path="/schools" element={<AdminSchoolList />} />
             <Route path="/apply-volunteer" element={<VolunteerApplicationForm />} />

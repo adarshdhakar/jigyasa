@@ -6,9 +6,22 @@ import { Menu, X, Sun, Moon, Bell, User } from 'lucide-react';
 
 export default function Header({ t, i18n, mobileOpen, setMobileOpen, darkMode, setDarkMode, changeLanguage }) {
   const navigate = useNavigate();
+  const location = useLocation();
 
   // const isVolunteerPage = location.pathname.startsWith("http://localhost:5000/volunteer");
-  const isVolunteerPage = location.pathname.startsWith("/volunteer");
+  const nonVolunteerPaths = [
+    '/',
+    '/relief-centers',
+    '/becomevolunteer',
+    '/about',
+    '/faq',
+    '/contact',
+    '/donate',
+    '/login',
+    '/register'
+  ];
+
+  const isVolunteerPage = !nonVolunteerPaths.includes(location.pathname);
 
   const handleLogout = () => {
     navigate("/");
@@ -31,9 +44,11 @@ export default function Header({ t, i18n, mobileOpen, setMobileOpen, darkMode, s
           <button onClick={() => setDarkMode(!darkMode)}>{darkMode ? <Sun /> : <Moon />}</button>
           {isVolunteerPage ? (
             <>
-              <Link to="/volunteer/notification">
-                <Bell className="w-6 h-6 text-gray-800 dark:text-white" />
-              </Link>
+              {location.pathname.startsWith("/volunteer") && (
+                <Link to="/volunteer/notification">
+                  <Bell className="w-6 h-6 text-gray-800 dark:text-white" />
+                </Link>
+              )}
               {/* <Link to="/profile">
                 <User className="w-6 h-6 text-gray-800 dark:text-white" />
               </Link> */}

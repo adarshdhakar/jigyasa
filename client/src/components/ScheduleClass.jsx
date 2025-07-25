@@ -9,6 +9,7 @@ const ScheduleCalendar = () => {
   const { t } = useTranslation();
   const [events, setEvents] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
   const [formValues, setFormValues] = useState({
     date: '',
     volunteerId: '',
@@ -81,28 +82,25 @@ const ScheduleCalendar = () => {
   };
 
   const renderEventContent = (eventInfo) => {
-    const { extendedProps, start, title } = eventInfo.event;
+    const { start, title } = eventInfo.event;
 
     const formatTime = (timeStr) =>
       new Date(timeStr).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
     return (
-      <div className="p-2 rounded-md bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700 text-sm leading-relaxed text-gray-800 dark:text-gray-300">
-        <strong className="block font-semibold text-blue-700 dark:text-blue-300 mb-1">
-          {title}
-        </strong>
-        <p className="text-gray-600 dark:text-gray-400">
-          {t('schedule.time')}: {formatTime(start)}
-        </p>
-        <p className="text-gray-500 dark:text-gray-400">
-          {t('schedule.volunteer')}: <span className="font-medium">{extendedProps.volunteerId}</span> ({extendedProps.volunteerEmail})
-        </p>
-        <p className="text-gray-500 dark:text-gray-400">
-          {t('schedule.school')}: <span className="font-medium">{extendedProps.school}</span> ({extendedProps.schoolEmail})
-        </p>
+      <div className="p-1 max-h-20 overflow-hidden whitespace-nowrap text-ellipsis text-xs bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700 text-blue-800 dark:text-blue-200 rounded-sm">
+        <strong>{title}</strong>
+        <div>{formatTime(start)}</div>
       </div>
     );
   };
+
+  const handleEventClick = (info) => {
+    setSelectedEvent(info.event);
+  };
+
+  const formatTime = (timeStr) =>
+    new Date(timeStr).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
   return (
     <div className="p-6 max-w-5xl mx-auto bg-white dark:bg-gray-900 shadow-md rounded-lg border border-gray-200 dark:border-gray-700">
@@ -114,11 +112,13 @@ const ScheduleCalendar = () => {
         plugins={[dayGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
         dateClick={handleDateClick}
+        eventClick={handleEventClick}
         events={events}
         eventContent={renderEventContent}
         height="auto"
       />
 
+      {/* Add Schedule Dialog */}
       <Dialog open={isModalOpen} onClose={() => setIsModalOpen(false)} className="relative z-50">
         <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
         <div className="fixed inset-0 flex items-center justify-center p-4">
@@ -167,6 +167,46 @@ const ScheduleCalendar = () => {
                 </button>
               </div>
             </form>
+          </Dialog.Panel>
+        </div>
+      </Dialog>
+
+      {/* Event Detail Modal */}
+      <Dialog open={!!selectedEvent} onClose={() => setSelectedEvent(null)} className="relative z-50">
+        <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
+        <div className="fixed inset-0 flex items-center justify-center p-4">
+          <Dialog.Panel className="w-full max-w-md rounded-xl bg-white dark:bg-gray-800 p-6 shadow-xl">
+            <Dialog.Title className="text-lg font-semibold text-blue-700 dark:text-blue-300 mb-4">
+              {selectedEvent?.title}
+            </Dialog.Title>
+            <div className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+              <p>
+                <strong>{t('schedule.time')}:</strong> {formatTime(selectedEvent?.start)}
+              </p>
+              <p>
+                <strong>{t('schedule.volunteer')}:</strong> {selectedEvent?.extendedProps.volunteerId} (
+                {selectedEvent?.extendedProps.volunteerEmail})
+              </p>
+              <p>
+                <strong>{t('schedule.school')}:</strong> {selectedEvent?.extendedProps.school} (
+                {selectedEvent?.extendedProps.schoolEmail})
+              </p>
+              <p>
+                <strong>{t('schedule.grade')}:</strong> {selectedEvent?.extendedProps.grade}
+              </p>
+              <p>
+                <strong>{t('schedule.subject')}:</strong> {selectedEvent?.extendedProps.subject}
+              </p>
+            </div>
+
+            <div className="mt-4 text-right">
+              <button
+                onClick={() => setSelectedEvent(null)}
+                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+              >
+                {t('schedule.close') || 'Close'}
+              </button>
+            </div>
           </Dialog.Panel>
         </div>
       </Dialog>
