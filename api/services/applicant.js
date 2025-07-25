@@ -176,34 +176,33 @@ const validateApplicantData = (applicantData) => {
         errors
     };
 };
-
 const acceptApplicant = async (applicantId) => {
-    console.log("id:" + applicantId)
-    const applicant = await Applicant.findOne({_id: applicantId})
+    console.log("id:" + applicantId);
 
-    console.log("A:")
-    console.log(applicant)
+    const applicant = await Applicant.findById(applicantId);
+    if (!applicant) throw new Error("Applicant not found");
+
+    const lastVolunteer = await VolunteerApplication.findOne().sort({ volunteerID: -1 });
+    const newVolunteerID = lastVolunteer ? lastVolunteer.volunteerID + 1 : 1;
 
     const volunteerDoc = {
-        volunteerID: 1,
+        volunteerID: newVolunteerID,
         name: applicant.name,
         age: applicant.age,
-        HighestQualification: "dummy",
+        HighestQualification: applicant.qualifications?.[0] || "N/A",
         Location: applicant.location,
-        email: applicant.mail,
+        email: applicant.mail,  // ✅ this is correct
         PhoneNumber: applicant.number
-    }
+    };
 
-    console.log("V:")
-    console.log(volunteerDoc)
+    const volunteer = new VolunteerApplication(volunteerDoc);
+    await volunteer.save();
 
-    const volunteer = new VolunteerApplication(volunteerDoc)
-    await volunteer.save()
+    await Applicant.deleteOne({ _id: applicantId });
 
-    await Applicant.deleteOne({_id: applicantId})
+    return volunteer;
+};
 
-    return volunteer
-}
 
 // Export all functions as Admin object
 const ApplicantService = {

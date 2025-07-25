@@ -1,4 +1,7 @@
-const VolunteerApplication = require('../models/Volunteer');
+const { StatusCodes } = require("http-status-codes")
+const VolunteerApplication = require('../models/Volunteer.js');
+const VolunteerService = require('../services/volunteer.service');
+
 
 const createVolunteerApplication = async (applicationData) => {
     try {
@@ -10,6 +13,16 @@ const createVolunteerApplication = async (applicationData) => {
     }
 };
 
+const getAllVolunteers = async (req, res) => {
+    try {
+        const volunteers = await VolunteerService.getAllVolunteers();
+        res.status(StatusCodes.OK).json({ volunteers });
+    } catch (error) {
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
+    }
+};
+
 module.exports = {
+    getAllVolunteers,
     createVolunteerApplication
 };

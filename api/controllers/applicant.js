@@ -3,17 +3,26 @@ const StatusCodes = require("http-status-codes")
 
 const createApplicant = async function(req, res, next) {
     try {
-        console.log("REQ:")
-        console.log(req.body)
-        const applicantDoc = req.body
-        console.log(req.body)
+        const body = req.body;
 
-        const createdApplicant = await ApplicantService.createApplicant(applicantDoc)
-        res.status(StatusCodes.OK).json({data: createdApplicant})
+        const applicantDoc = {
+            name: body.name,
+            age: body.age,
+            gender: body.gender === "M" ? "Male" : body.gender === "F" ? "Female" : "Other",
+            qualifications: body.qualification, // assuming client sends singular
+            location: body.location,
+            mail: body.email,
+            number: body.phone
+        };
+
+        const createdApplicant = await ApplicantService.createApplicant(applicantDoc);
+        res.status(StatusCodes.CREATED).json({ success: true, data: createdApplicant });
     } catch (e) {
-        // console.log(e)
+        console.error("Error creating applicant:", e.message);
+        res.status(StatusCodes.BAD_REQUEST).json({ success: false, error: e.message });
     }
-}
+};
+
 
 const getAllApplicants = async function(req, res, next) {
     try {

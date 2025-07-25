@@ -14,17 +14,19 @@ const getSchoolByEmail = async (email) => {
     }
 };
 
-// Create school function
+// services/school.js
 const createSchool = async (schoolData) => {
     try {
+        const { email, phone } = schoolData.contact || {};
+
         // Validate email format
         const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        if (!emailRegex.test(schoolData.email)) {
+        if (!email || !emailRegex.test(email)) {
             throw new Error('Invalid email format');
         }
 
         // Validate phone number
-        if (!/^\d{10}$/.test(schoolData.phone)) {
+        if (!phone || !/^\d{10}$/.test(phone)) {
             throw new Error('Phone number must be 10 digits');
         }
 
