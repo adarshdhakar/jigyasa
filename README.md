@@ -1,6 +1,6 @@
 <div align="center">
 
-# Jigyasa: Empowering Rural Education, Together 🇮🇳
+# Jigyasa: Empowering Rural Education, Together
 
 **Jigyasa is a comprehensive web platform designed to bridge the educational gap in rural areas. It connects dedicated volunteers with underserved schools, providing a streamlined system for coordination, resource sharing, and impact tracking. Our mission is to empower rural communities and make quality education accessible to every child.**
 
@@ -44,17 +44,14 @@ This project is built using the MERN stack and other modern web technologies to 
 ## Key Features
 Jigyasa is packed with features designed to facilitate a seamless experience for administrators, volunteers, and schools.
 
-<p style="display:flex">
-  <img src="./images/1.png" alt="screenshot" width="50%"/>
-  <img src="./images/3.png" alt="screenshot" width="50%"/>
-</p>
+| ![screenshot1](./images/1.png) | ![screenshot2](./images/3.png) |
+|--------------------------------|--------------------------------|
 
 ### 🎨 Enhanced User Experience
 A customizable **light/dark mode** interface coupled with **multilingual support** (English, हिंदी, मराठी) ensures the platform is accessible and user-friendly for everyone.
-<p style="display:flex">
-  <img src="./images/9.png" alt="screenshot" width="50%"/>
-  <img src="./images/17.png" alt="screenshot" width="50%"/>
-</p>
+| ![screenshot1](./images/9.png) | ![screenshot2](./images/17.png) |
+|--------------------------------|--------------------------------|
+
 <p align="center">
   <img src="./images/16.png" alt="screenshot" width="50%"/>
 </p>
@@ -63,14 +60,10 @@ A customizable **light/dark mode** interface coupled with **multilingual support
 ### 👨‍🏫 Volunteer Management
 Features a streamlined volunteer **application and onboarding process**. A comprehensive dashboard allows for tracking personnel statistics and performance.
 <br/>
-<p style="display:flex">
-  <img src="./images/2.png" alt="screenshot" width="50%"/>
-  <img src="./images/5.png" alt="screenshot" width="50%"/>
-</p>
-<p style="display:flex">
-  <img src="./images/4.png" alt="screenshot" width="50%"/>
-  <img src="./images/6.png" alt="screenshot" width="50%"/>
-</p>
+| ![screenshot1](./images/2.png) | ![screenshot2](./images/5.png) |
+|--------------------------------|--------------------------------|
+| ![screenshot1](./images/4.png) | ![screenshot2](./images/6.png) |
+
 <br/>
 
 ### 📚 Centralized Educational Resources
@@ -89,14 +82,9 @@ An intelligent allocation system assigns volunteers to schools, with a policy of
 ### ⚙️ Robust Admin Controls
 A centralized admin dashboard provides powerful tools for **managing volunteers, uploading resources, and viewing detailed analytics**.
 <br/>
-<p style="display:flex">
-  <img src="./images/9.png" alt="screenshot" width="50%"/>
-  <img src="./images/13.png" alt="screenshot" width="50%"/>
-</p>
-<p style="display:flex">
-  <img src="./images/11.png" alt="screenshot" width="50%"/>
-  <img src="./images/12.png" alt="screenshot" width="50%"/>
-</p>
+| ![screenshot1](./images/9.png) | ![screenshot2](./images/13.png) |
+|--------------------------------|--------------------------------|
+| ![screenshot1](./images/11.png) | ![screenshot2](./images/12.png) |
 <p align="center">
   <img src="./images/10.png" alt="screenshot" width="50%"/>
 </p>
