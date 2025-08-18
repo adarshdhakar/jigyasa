@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import "./App.css";
 
 // MUI Admin Components
-import Dashboard from './components/dashboard';
+import Dashboard from './components/Dashboard';
 import DashboardSidebar from './components/DashboardSidebar';
 import AdminAddVolunteer from './components/AdminAddVolunteer';
 import AdminAddSchool from './components/AdminAddSchool';

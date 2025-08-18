@@ -8,7 +8,6 @@ export default function Header({ t, i18n, mobileOpen, setMobileOpen, darkMode, s
   const navigate = useNavigate();
   const location = useLocation();
 
-  // const isVolunteerPage = location.pathname.startsWith("http://localhost:5000/volunteer");
   const nonVolunteerPaths = [
     '/',
     '/relief-centers',

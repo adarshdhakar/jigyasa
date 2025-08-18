@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import schoolBg from '../images/image1.jpeg';
+import BASE_URL from '../config';
 
 const AdminAddSchool = () => {
   const { t } = useTranslation();
@@ -44,7 +45,7 @@ const AdminAddSchool = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/school/create', {
+      const response = await fetch(`${BASE_URL}/school/create`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(schoolData),

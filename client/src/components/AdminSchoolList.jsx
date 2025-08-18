@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import BASE_URL from '../config';
 
 const AdminSchoolList = () => {
   const { t } = useTranslation();
@@ -11,7 +12,7 @@ const AdminSchoolList = () => {
   useEffect(() => {
     const fetchSchools = async () => {
       try {
-        const res = await fetch('http://localhost:5000/school/all');
+        const res = await fetch(`${BASE_URL}/school/all`);
         if (!res.ok) throw new Error(t('school_list.fetch_error'));
 
         const data = await res.json();

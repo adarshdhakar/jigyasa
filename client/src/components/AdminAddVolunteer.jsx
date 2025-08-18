@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import BASE_URL from '../config';
 
 const AdminAddApplicant = () => {
   const { t } = useTranslation();
@@ -10,7 +11,7 @@ const AdminAddApplicant = () => {
   useEffect(() => {
     const fetchApplicants = async () => {
       try {
-        const response = await fetch('http://localhost:5000/applicant/all');
+        const response = await fetch(`${BASE_URL}/applicant/all`);
         const data = await response.json();
         setApplicants(data.applicants || []);
       } catch (error) {
@@ -33,7 +34,7 @@ const AdminAddApplicant = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/applicant/accept', {
+      const response = await fetch(`${BASE_URL}/applicant/accept`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ applicantId: selectedApplicantId }),

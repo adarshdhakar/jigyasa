@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import bgImage from '../images/image2.jpeg';
+import BASE_URL from '../config';
 
 const VolunteerApplicationForm = () => {
   const { t } = useTranslation();
@@ -29,7 +30,7 @@ const VolunteerApplicationForm = () => {
   useEffect(() => {
     const fetchVolunteers = async () => {
       try {
-        const res = await fetch('http://localhost:5000/applicant/all');
+        const res = await fetch(`${BASE_URL}/applicant/all`);
         const data = await res.json();
         setVolunteers(data.volunteers || []);
       } catch (err) {
@@ -56,7 +57,7 @@ const VolunteerApplicationForm = () => {
     };
 
     try {
-      const res = await fetch('http://localhost:5000/applicant/create', {
+      const res = await fetch(`${BASE_URL}/applicant/create`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(transformedData),

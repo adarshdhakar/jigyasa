@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Mail, Phone, Calendar, MapPin, GraduationCap, Hash } from 'lucide-react';
 import bgImage from '../images/image2.jpeg';
+import BASE_URL from '../config';
 
 const AdminVolunteerList = () => {
   const { t } = useTranslation();
@@ -13,7 +14,7 @@ const AdminVolunteerList = () => {
   useEffect(() => {
     const fetchVolunteers = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/volunteers/all');
+        const res = await fetch(`${BASE_URL}/api/volunteers/all`);
         const data = await res.json();
         setVolunteers(data.volunteers);
         setFiltered(data.volunteers);

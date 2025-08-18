@@ -4,6 +4,7 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { Dialog } from '@headlessui/react';
+import BASE_URL from '../config';
 
 const ScheduleCalendar = () => {
   const { t } = useTranslation();
@@ -68,7 +69,7 @@ const ScheduleCalendar = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:5000/schedule/', {
+      const response = await fetch(`${BASE_URL}/schedule/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(scheduleData),

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
+import BASE_URL from "../config";
 
 export default function DonationPage() {
   const [amount, setAmount] = useState("");
@@ -33,7 +34,7 @@ export default function DonationPage() {
 
     setLoading(true);
     try {
-      const orderRes = await axios.post("http://localhost:5000/api/payment/create-order", {
+      const orderRes = await axios.post(`${BASE_URL}/api/payment/create-order`, {
         amount: Number(amount),
       });
 
