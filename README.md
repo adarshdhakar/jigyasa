@@ -69,10 +69,8 @@ Features a streamlined volunteer **application and onboarding process**. A compr
 ### 📚 Centralized Educational Resources
 Access **chapter-wise organized quizzes and educational videos** for various grade levels, allowing volunteers to deliver structured and effective lessons.
 <br/>
-<p style="display:flex">
-  <img src="./images/7.png" alt="screenshot" width="50%"/>
-  <img src="./images/8.png" alt="screenshot" width="50%"/>
-</p>
+| ![screenshot1](./images/7.png) | ![screenshot2](./images/8.png) |
+|--------------------------------|--------------------------------|
 
 ### 🏫 Smart School Assignment System
 An intelligent allocation system assigns volunteers to schools, with a policy of a **maximum of five schools per volunteer** and one volunteer per school to ensure focused attention.
