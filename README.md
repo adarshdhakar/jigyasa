@@ -13,7 +13,6 @@
 <p>
   <img src="https://img.shields.io/github/stars/adarshdhakar/jigyasa?style=for-the-badge&logo=github" alt="GitHub stars"/>
   <img src="https://img.shields.io/github/forks/adarshdhakar/jigyasa?style=for-the-badge&logo=github" alt="GitHub forks"/>
-  <img src="https://img.shields.io/github/license/adarshdhakar/jigyasa?style=for-the-badge" alt="License"/>
   <img src="https://img.shields.io/github/last-commit/adarshdhakar/jigyasa?style=for-the-badge&logo=git" alt="Last commit"/>
 </p>
 
@@ -154,7 +153,7 @@ Make sure you have the following software installed on your system:
         ```
     * Start the backend server:
         ```sh
-        npm start
+        nodemon index.js
         ```
     * The server should now be running on `http://localhost:5000`.
 
